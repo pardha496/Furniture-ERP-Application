@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.funrierp.dto.LoginRequestDTO;
 import com.funrierp.dto.UserRequestDTO;
 import com.funrierp.service.UserService;
 import com.funrierp.utils.MessageResponse;
@@ -39,6 +40,12 @@ public class UserController {
 		//return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 		
 		return new ResponseEntity<String>("User "+ userDetails.getUsername() +" registered successfully!", HttpStatus.CREATED);
+	}
+	
+	@PostMapping("signin")
+	public ResponseEntity<?> signin( @RequestBody @Valid LoginRequestDTO userDetails){
+		
+		return new ResponseEntity<String>(userValidation.verify(userDetails), HttpStatus.OK);
 	}
 
 }

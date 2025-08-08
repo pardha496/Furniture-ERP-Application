@@ -2,38 +2,38 @@ package com.funrierp.entity;
 
 import java.util.Date;
 
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+@Builder
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Entity(name="Users")
-public class User {
-
+@RequiredArgsConstructor
+@Entity
+public class Product {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
-	private String username;
+	private String name;
 	
-	private String email;
+	private String description;
 	
-	private String password;
+	private String category;
 	
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	private double price;
 	
-	private boolean isActive;
+	private int quantity;
 	
 	private Date createdDate;
+	
+	private Date updatedDate;
 
 }

@@ -1,20 +1,21 @@
 package com.funrierp.mapper;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.funrierp.dto.LoginResponseDTO;
 import com.funrierp.dto.UserRequestDTO;
 import com.funrierp.entity.User;
 
-import ch.qos.logback.core.encoder.Encoder;
 import lombok.Data;
 
 @Data
 public class UserMapper {
 	
 	@Autowired
-	static PasswordEncoder encoder;
+	static private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 	
     public static User toEntity(UserRequestDTO dto) {
         User user = new User();
@@ -22,7 +23,9 @@ public class UserMapper {
         user.setEmail(dto.getEmail());
         user.setRole(dto.getRole());
         // password encryption
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setActive(true);
+        user.setPassword(encoder.encode(dto.getPassword()));
+        user.setCreatedDate(new Date());
         
         return user;
     }
