@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ValidationHandler {
+public class GoblanExceptionHandler {
+	
+	@ExceptionHandler(NoProductFoundException.class)
+	public ResponseEntity<String> productNotFound(NoProductFoundException ex){
+		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationErrors(MethodArgumentNotValidException ex) {
@@ -27,5 +32,12 @@ public class ValidationHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> handleGenericException(Exception ex) {
+	    Map<String, String> error = new HashMap<>();
+	    error.put("error", ex.getMessage());
+	    return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 }

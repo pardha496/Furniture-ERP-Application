@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.funrierp.dto.LoginResponseDTO;
 import com.funrierp.dto.UserRequestDTO;
+import com.funrierp.dto.UserResponseDTO;
 import com.funrierp.entity.User;
 
 import lombok.Data;
@@ -38,4 +39,12 @@ public class UserMapper {
         dto.setMessage("Login successful");
         return dto;
     }
+    
+     public static UserResponseDTO entityToUser(User user) {
+    	 UserResponseDTO userdto=new UserResponseDTO();
+    	 userdto.setUsername(user.getUsername());
+    	 userdto.setEmail(user.getEmail());
+    	 userdto.setRole(user.getRole());
+    	 return userdto;
+     }
 }

@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class ProductRequestDTO {
 	
+	private Long id;
+	
 	@NotEmpty(message = "Username should not be empty")
 	private String name;
 	

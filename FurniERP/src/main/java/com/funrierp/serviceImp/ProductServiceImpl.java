@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.funrierp.dto.ProductRequestDTO;
 import com.funrierp.dto.ProductResponseDTO;
 import com.funrierp.entity.Product;
+import com.funrierp.exceptions.NoProductFoundException;
 import com.funrierp.mapper.ProductMapper;
 import com.funrierp.repository.ProductRepository;
 import com.funrierp.service.ProductService;
@@ -33,19 +34,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductResponseDTO getProductById(int id) {
+	public ProductResponseDTO getProductById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return ProductMapper.entityToProdectDto( productRepo.findById(id).orElseThrow(()-> new NoProductFoundException(id)));
 	}
 
 	@Override
-	public ProductResponseDTO updateProduct(int id, ProductRequestDTO dto) {
+	public ProductResponseDTO updateProduct( Long id,ProductRequestDTO dto) {
 		// TODO Auto-generated method stub
-		return null;
+		productRepo.findById(id).orElseThrow(()-> new NoProductFoundException(id));
+		
+		return ProductMapper.entityToProdectDto( productRepo.save(ProductMapper.dtoToProductEntity(dto)));
 	}
 
 	@Override
-	public boolean deleteProduct(int id) {
+	public boolean deleteProduct(Long id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

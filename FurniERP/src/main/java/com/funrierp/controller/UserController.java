@@ -1,14 +1,19 @@
 package com.funrierp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.funrierp.dto.LoginRequestDTO;
 import com.funrierp.dto.UserRequestDTO;
+import com.funrierp.dto.UserResponseDTO;
 import com.funrierp.service.UserService;
 import com.funrierp.utils.MessageResponse;
 import com.funrierp.validator.ValidateUser;
@@ -47,5 +52,14 @@ public class UserController {
 		
 		return new ResponseEntity<String>(userValidation.verify(userDetails), HttpStatus.OK);
 	}
+	
+	@GetMapping("getAllemployees")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> getAllEmployees() {
+		//TODO: process POST request
+		
+		return new ResponseEntity<List<UserResponseDTO>>(userSerice.getAllEmployees(), HttpStatus.OK);
+	}
+	
 
 }

@@ -25,6 +25,7 @@ public class ProductMapper {
 	public static ProductResponseDTO entityToProdectDto(Product product) {
 		
 		return ProductResponseDTO.builder()
+				.product_id(product.getId())
 				.name(product.getName())
 				.description(product.getDescription())
 				.category(product.getCategory())
